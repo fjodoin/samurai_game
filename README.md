@@ -1,2 +1,2 @@
-# samurai_game
-Samurai game to help brush up JavaScript: https://www.youtube.com/watch?v=vyqbNFMDRGQ&amp;t=372s
+# javascript_samurai_game
+Brushing up on JavaScript by following tutorial: https://youtu.be/vyqbNFMDRGQ
