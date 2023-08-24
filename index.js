@@ -29,6 +29,7 @@ class Sprite {
 		}
 		this.color = color
 		this.isAttacking
+		this.health = 100 // Start with 100 hp
 	}
 	
 	// Draw Sprite on canvas
@@ -163,6 +164,8 @@ function animate(){
 		){
 			player.isAttacking = false
 			console.log('player attack hit')
+			enemy.health -= 20
+			document.querySelector('#enemyHealth').style.width = enemy.health + '%'
 	}
 
 	// detect collision: enemy >>> player
@@ -174,6 +177,8 @@ function animate(){
 		){
 			enemy.isAttacking = false
 			console.log('enemy attack hit')
+			player.health -= 20
+			document.querySelector('#playerHealth').style.width = player.health + '%'
 	}
 }
 
