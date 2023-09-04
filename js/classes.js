@@ -115,7 +115,6 @@ class Fighter extends Sprite {
 			this.velocity.y = 0
             this.position.y = 391 // Hardcoded y position so sprite animation doesnt bug out
 		} else this.velocity.y += gravity
-        console.log(this.position.y)
 	}
 
 	attack() {

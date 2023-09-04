@@ -73,7 +73,7 @@ const player = new Fighter({
 		attack1: {
 			imageSrc: './img/kenji/Sprites/Attack1.png',
 			framesMax: 6 
-		}
+		} 
 	}	
 })
 
@@ -93,6 +93,35 @@ const enemy = new Fighter({
 	offset: {
 		x: -50,
 		y: 0
+	},
+	imageSrc: './img/ryui/Sprites/Idle.png',
+	scale: 2.5,
+	framesMax: 4,
+	offset: {
+		x: 215,
+		y: 152
+	},
+	sprites: {
+		idle: {
+			imageSrc: './img/ryui/Sprites/Idle.png',
+			framesMax: 4
+		},
+		run: {
+			imageSrc: './img/ryui/Sprites/Run.png',
+			framesMax: 8
+		},
+		jump: {
+			imageSrc: './img/ryui/Sprites/Jump.png',
+			framesMax: 2
+		},
+		fall: {
+			imageSrc: './img/ryui/Sprites/Fall.png',
+			framesMax: 2 
+		},
+		attack1: {
+			imageSrc: './img/ryui/Sprites/Attack1.png',
+			framesMax: 4 
+		} 
 	}	
 })
 
@@ -121,7 +150,7 @@ function animate(){
 	background.update()
 	shop.update()
 	player.update()
-	//enemy.update()
+	enemy.update()
 
 	// player movement (lateral)
 	player.velocity.x = 0
@@ -145,8 +174,18 @@ function animate(){
 	enemy.velocity.x = 0
 	if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
 		enemy.velocity.x = -3
+		enemy.switchSprite('run')
 	} else if (keys.ArrowRight.pressed && enemy.lastKey === 'ArrowRight') {
 		enemy.velocity.x = 3
+		enemy.switchSprite('run')
+	} else {
+		enemy.switchSprite('idle')
+	}
+	// enemy movement (vertical)
+	if (enemy.velocity.y < 0) {
+		enemy.switchSprite('jump')
+	} else if (enemy.velocity.y > 0) {
+		enemy.switchSprite('fall')
 	}
 
 	// detect collision: player >>> enemy
