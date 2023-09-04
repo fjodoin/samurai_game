@@ -1,22 +1,47 @@
 class Sprite {
 	// {} <-- wrap arguments in one object; becomes optional
-	constructor({position, imageSrc}) {
+	constructor({position, imageSrc, scale = 1, framesMax = 1}) {
 		this.position = position	// position of Sprite
 		this.width = 50				// static value for width of Sprite
 		this.height = 150			// static value from height of Sprite
         this.image = new Image()
         this.image.src = imageSrc
+        this.scale = scale
+        this.framesMax = framesMax
+        this.frameCurrent = 0
+        this.framesElapsed = 0
+        this.framesHold = 8
 	}
 	
 	// Draw Sprite on canvas
 	draw() {
-		c.drawImage(this.image, this.position.x, this.position.y)
+		c.drawImage(
+            this.image,
+            // Crop image for animation
+            this.frameCurrent * (this.image.width / this.framesMax), // Change x-value to new frame for animation
+            0,
+            this.image.width / this.framesMax, // Depends on the amount of frames
+            this.image.height,            
+            // Draw to Canvas            
+            this.position.x,
+            this.position.y,
+            (this.image.width / this.framesMax) * this.scale,
+            this.image.height * this.scale
+        )
 	}
 
 	// Update position of Sprite
 	update() {
 		this.draw()
-		// update later
+        this.framesElapsed++
+
+        if (this.framesElapsed % this.framesHold === 0){
+            if (this.frameCurrent < this.framesMax - 1){
+                this.frameCurrent++
+            } else {
+                this.frameCurrent = 0
+            }
+        }      
 	}
 }
 

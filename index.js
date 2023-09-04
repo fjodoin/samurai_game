@@ -16,6 +16,17 @@ const background = new Sprite({
 	imageSrc: './img/background.png'
 })
 
+// Set shop Sprites
+const shop = new Sprite({
+	position:{
+		x: 350,
+		y: 192
+	},
+	imageSrc: './img/shop.png',
+	scale: 2.75,
+	framesMax: 6
+})
+
 // Class object used to define players and enemies in game
 const gravity = 0.7
 
@@ -79,6 +90,7 @@ function animate(){
 	c.fillStyle = 'black'
 	c.fillRect(0, 0, canvas.width, canvas.height) // Clear frame to avoid "paint drip" effect
 	background.update()
+	shop.update()
 	player.update()
 	enemy.update()
 
