@@ -45,6 +45,13 @@ const player = new Fighter({
 	offset: {
 		x: 0,
 		y: 0
+	},
+	imageSrc: './img/kenji/Sprites/Idle.png',
+	scale: 2.5,
+	framesMax: 8,
+	offset: {
+		x: 215,
+		y: 152
 	}	
 })
 
@@ -92,7 +99,7 @@ function animate(){
 	background.update()
 	shop.update()
 	player.update()
-	enemy.update()
+	//enemy.update()
 
 	// player movement
 	player.velocity.x = 0
