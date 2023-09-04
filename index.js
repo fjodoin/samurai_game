@@ -73,7 +73,19 @@ const player = new Fighter({
 		attack1: {
 			imageSrc: './img/kenji/Sprites/Attack1.png',
 			framesMax: 6 
+		},
+		takeHit: {
+			imageSrc: './img/kenji/Sprites/Take Hit.png',
+			framesMax: 4 
 		} 
+	},
+	attackBox: {
+		offset: {
+			x: 100,
+			y: 50
+		},
+		width: 150,
+		height: 50
 	}	
 })
 
@@ -121,8 +133,20 @@ const enemy = new Fighter({
 		attack1: {
 			imageSrc: './img/ryui/Sprites/Attack1.png',
 			framesMax: 4 
-		} 
-	}	
+		},
+		takeHit: {
+			imageSrc: './img/ryui/Sprites/Take hit.png',
+			framesMax: 3 
+		}  
+	},
+	attackBox: {
+		offset: {
+			x: -200,
+			y: 0
+		},
+		width: 180,
+		height: 50
+	}		
 })
 
 const keys = {
@@ -193,12 +217,17 @@ function animate(){
 		rectangle1: player,
 		rectangle2: enemy
 		}) &&
-		player.isAttacking
+		player.isAttacking && 
+		player.frameCurrent === 4
 		){
+			enemy.takeHit()
 			player.isAttacking = false
 			console.log('player attack hit')
-			enemy.health -= 20
 			document.querySelector('#enemyHealth').style.width = enemy.health + '%'
+	}
+	// if player misses
+	if (player.isAttacking && player.frameCurrent === 4 ) {
+		player.isAttacking = false
 	}
 
 	// detect collision: enemy >>> player
@@ -206,12 +235,18 @@ function animate(){
 		rectangle1: enemy,
 		rectangle2: player
 		}) &&
-		enemy.isAttacking
+		enemy.isAttacking &&
+		enemy.frameCurrent === 2
 		){
+			player.takeHit()
 			enemy.isAttacking = false
 			console.log('enemy attack hit')
-			player.health -= 20
+			player.health -= 10
 			document.querySelector('#playerHealth').style.width = player.health + '%'
+	}
+	// if enemy misses
+	if (enemy.isAttacking && enemy.frameCurrent === 2 ) {
+		enemy.isAttacking = false
 	}
 
 	// end game based on hp
