@@ -52,6 +52,16 @@ const player = new Fighter({
 	offset: {
 		x: 215,
 		y: 152
+	},
+	sprites: {
+		idle: {
+			imageSrc: './img/kenji/Sprites/Idle.png',
+			framesMax: 8
+		},
+		run: {
+			imageSrc: './img/kenji/Sprites/Run.png',
+			framesMax: 8
+		}
 	}	
 })
 
@@ -103,10 +113,13 @@ function animate(){
 
 	// player movement
 	player.velocity.x = 0
+	player.image = player.sprites.idle.image
 	if (keys.a.pressed && player.lastKey === 'a') {
 		player.velocity.x = -3
+		player.image = player.sprites.run.image
 	} else if (keys.d.pressed && player.lastKey === 'd') {
 		player.velocity.x = 3
+		player.image = player.sprites.run.image
 	}
 
 	// enemy movement
@@ -158,6 +171,7 @@ window.addEventListener('keydown', (event) => {
 		case 'a':
 			keys.a.pressed = true	// move player to the left
 			player.lastKey = 'a'
+			player.image = player.sprites.run.image
 			break
 		case 'd':
 			keys.d.pressed = true	// move player to the right

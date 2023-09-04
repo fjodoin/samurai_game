@@ -53,7 +53,16 @@ class Sprite {
 
 class Fighter extends Sprite {
 	// {} <-- wrap arguments in one object; becomes optional
-	constructor({position, velocity, color = 'red', imageSrc, scale = 1, framesMax = 1, offset = { x:0, y:0}}) {    // remove duplicate offset
+	constructor({
+        position,
+        velocity,
+        color = 'red',
+        imageSrc,
+        scale = 1,
+        framesMax = 1,
+        offset = { x: 0, y: 0},
+        sprites
+    }) {    // remove duplicate offset
 		super({                     // calls the constructor of extended class Sprite; inherit declared properties
             position,
             imageSrc,
@@ -61,10 +70,6 @@ class Fighter extends Sprite {
             framesMax,
             offset
         })
-        // Hardcoded values from Sprite properties
-        this.frameCurrent = 0
-        this.framesElapsed = 0
-        this.framesHold = 8                     
         // this.position = position	// position of Sprite
 		this.velocity = velocity	// speed of Sprite
 		this.width = 50				// static value for width of Sprite
@@ -82,6 +87,19 @@ class Fighter extends Sprite {
 		this.color = color
 		this.isAttacking
 		this.health = 100 // Start with 100 hp
+
+        // Hardcoded values
+        this.frameCurrent = 0
+        this.framesElapsed = 0
+        this.framesHold = 8
+        this.sprites = sprites
+        
+        // loop through sprites object
+        for (const sprite in this.sprites) {
+            sprites[sprite].image = new Image()
+            sprites[sprite].image.src = sprites[sprite].imageSrc
+        }
+        console.log(this.sprites)
 	}
 	
 	// // Draw Sprite on canvas as Rectangles for initial programming
