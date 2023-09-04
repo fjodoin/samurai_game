@@ -240,6 +240,7 @@ function animate(){
 	// if player misses
 	if (player.isAttacking && player.frameCurrent === 4 ) {
 		player.isAttacking = false
+		console.log('player miss')
 	}
 
 	// detect collision: enemy >>> player
@@ -278,7 +279,6 @@ window.addEventListener('keydown', (event) => {
 			case 'a':
 				keys.a.pressed = true	// move player to the left
 				player.lastKey = 'a'
-				player.image = player.sprites.run.image
 				break
 			case 'd':
 				keys.d.pressed = true	// move player to the right
