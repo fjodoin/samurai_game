@@ -61,6 +61,14 @@ const player = new Fighter({
 		run: {
 			imageSrc: './img/kenji/Sprites/Run.png',
 			framesMax: 8
+		},
+		jump: {
+			imageSrc: './img/kenji/Sprites/Jump.png',
+			framesMax: 2
+		},
+		fall: {
+			imageSrc: './img/kenji/Sprites/Fall.png',
+			framesMax: 2 
 		}
 	}	
 })
@@ -111,18 +119,25 @@ function animate(){
 	player.update()
 	//enemy.update()
 
-	// player movement
+	// player movement (lateral)
 	player.velocity.x = 0
-	player.image = player.sprites.idle.image
 	if (keys.a.pressed && player.lastKey === 'a') {
 		player.velocity.x = -3
-		player.image = player.sprites.run.image
+		player.switchSprite('run')
 	} else if (keys.d.pressed && player.lastKey === 'd') {
 		player.velocity.x = 3
-		player.image = player.sprites.run.image
+		player.switchSprite('run')
+	} else {
+		player.switchSprite('idle')
+	}
+	// player movement (vertical)
+	if (player.velocity.y < 0) {
+		player.switchSprite('jump')
+	} else if (player.velocity.y > 0) {
+		player.switchSprite('fall')
 	}
 
-	// enemy movement
+	// enemy movement (lateral)
 	enemy.velocity.x = 0
 	if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
 		enemy.velocity.x = -3

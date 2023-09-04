@@ -99,25 +99,7 @@ class Fighter extends Sprite {
             sprites[sprite].image = new Image()
             sprites[sprite].image.src = sprites[sprite].imageSrc
         }
-        console.log(this.sprites)
 	}
-	
-	// // Draw Sprite on canvas as Rectangles for initial programming
-	// draw() {
-	// 	c.fillStyle = this.color
-	// 	c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
-	// 	// draw attackBox
-	// 	if (this.isAttacking) {
-	// 		c.fillStyle = 'green'
-	// 		c.fillRect (
-	// 			this.attackBox.position.x,
-	// 			this.attackBox.position.y,
-	// 			this.attackBox.width,
-	// 			this.attackBox.height
-	// 		)
-	// 	}
-	// }
 
 	// Update position of Sprite
 	update() {
@@ -128,9 +110,12 @@ class Fighter extends Sprite {
 		this.position.x += this.velocity.x
 		this.position.y += this.velocity.y
 
+        // Gravity
 		if (this.position.y + this.height + this.velocity.y >= canvas.height - 35){
 			this.velocity.y = 0
+            this.position.y = 391 // Hardcoded y position so sprite animation doesnt bug out
 		} else this.velocity.y += gravity
+        console.log(this.position.y)
 	}
 
 	attack() {
@@ -139,4 +124,37 @@ class Fighter extends Sprite {
 			this.isAttacking = false
 		}, 100)
 	}
+
+    switchSprite(sprite) {
+        switch (sprite) {
+            case 'idle':
+                if (this.image !== this.sprites.idle.image) {
+                    this.image = this.sprites.idle.image
+                    this.framesMax = this.sprites.idle.framesMax
+                    this.frameCurrent = 0
+                }
+                break
+            case 'run':
+                if (this.image !== this.sprites.run.image) {
+                    this.image = this.sprites.run.image
+                    this.framesMax = this.sprites.run.framesMax
+                    this.frameCurrent = 0
+                }
+                break
+            case 'jump':
+                if (this.image !== this.sprites.jump.image) {    
+                    this.image = this.sprites.jump.image
+		            this.framesMax = this.sprites.jump.framesMax
+                    this.frameCurrent = 0
+                }
+                break
+            case 'fall':
+                if (this.image !== this.sprites.fall.image) {    
+                    this.image = this.sprites.fall.image
+		            this.framesMax = this.sprites.fall.framesMax
+                    this.frameCurrent = 0
+                }
+                break 
+        }
+    }
 }
